@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MIUI更新地址</string>
+    <string name="title">组合MIUI更新地址</string>
+    <string name="before_use">注：本应用只是快速组合下载地址\n   必须要求该更新已经在下载</string>
+    <string name="start_button">开始组合</string>
+    <string name="no_xiaomi">该手机不是MIUI系统，无法使用！</string>
+    <string name="environment_error">环境监测错误!</string>
+    <string name="no_file">升级zip包目录里没有找到升级zip包</string>
+    <string name="no_path">没有找到升级zip包目录</string>
+    <string name="result">组合结果</string>
+    <string name="copy">复制到剪切板</string>
+    <string name="share">分享</string>
+    <string name="done">确认</string>
+    <string name="copy_ok">复制到剪切板成功</string>
+    <string name="huge">完整包下载地址:</string>
+    <string name="ota">OTA包下载地址:</string>
+    <string name="device">手机型号:</string>
+    <string name="update_info">更新日志</string>
+    <string name="about">关于作者</string>
+    <string name="about_info">作者:逸雪飞扬(XFY9326/ClareX)\nQQ:1069665464\n欢迎提出建议</string>
+    <string name="update">v1.0\n应用诞生\n\nv1.1\n加入分享功能\n\nv1.2\n修复更新包识别错误\n新增页面\n\n1.3\n去掉讨厌的最后两行回车</string>
+</resources>

@@ -1,0 +1,4 @@
+# MIUI-CombineUpdateZipURL
+一键组合MIUI安装包的下载地址并分享的APK软件
+
+仅适用于MIUI系统的手机，要求安装包必须正在下载或者已经下载好

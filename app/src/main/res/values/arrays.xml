@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="selects">
+        <item>不显示</item>
+        <item>体验版</item>
+        <item>开发版</item>
+        <item>开发版内测</item>
+        <item>稳定版</item>
+        <item>稳定版内测</item>
+        <item>特殊版本</item>
+    </string-array>
+</resources>

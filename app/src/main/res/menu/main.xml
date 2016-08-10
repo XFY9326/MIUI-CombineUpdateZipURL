@@ -1,5 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    
+    <item
+        android:id="@+id/delete_all"
+        android:title="@string/delete_zips"
+        android:visible="true"/>
     <item 
         android:id="@+id/update_info" 
         android:title="@string/update_info" 
@@ -8,5 +11,4 @@
         android:id="@+id/about" 
         android:title="@string/about" 
         android:visible="true"/> 
-    
 </menu>

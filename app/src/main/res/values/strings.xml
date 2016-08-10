@@ -2,22 +2,28 @@
 <resources>
     <string name="app_name">MIUI更新地址</string>
     <string name="title">组合MIUI更新地址</string>
-    <string name="before_use">注：本应用只是快速组合下载地址\n   必须要求该更新已经在下载</string>
+    <string name="before_use">注：本应用只是快速组合下载地址\n   必须要求该更新已经或正在下载</string>
     <string name="start_button">开始组合</string>
     <string name="no_xiaomi">该手机不是MIUI系统，无法使用！</string>
     <string name="environment_error">环境监测错误!</string>
     <string name="no_file">升级zip包目录里没有找到升级zip包</string>
     <string name="no_path">没有找到升级zip包目录</string>
-    <string name="result">组合结果</string>
-    <string name="copy">复制到剪切板</string>
+    <string name="result">组合结果(选择导出)</string>
+    <string name="zip_version">安装包版本:</string>
+    <string name="no_choose">没有选择导出的内容！导出失败！</string>
+    <string name="copy_all">全部复制</string>
+    <string name="copy">复制</string>
     <string name="share">分享</string>
     <string name="done">确认</string>
     <string name="copy_ok">复制到剪切板成功</string>
-    <string name="huge">完整包下载地址:</string>
-    <string name="ota">OTA包下载地址:</string>
+    <string name="huge">完整包</string>
+    <string name="ota">OTA包</string>
+    <string name="download">下载地址:</string>
     <string name="device">手机型号:</string>
+    <string name="delete_zips">清空所有安装包</string>
+    <string name="delete_zips_ok">所有安装包清空成功！</string>
     <string name="update_info">更新日志</string>
     <string name="about">关于作者</string>
-    <string name="about_info">作者:逸雪飞扬(XFY9326/ClareX)\nQQ:1069665464\n欢迎提出建议</string>
-    <string name="update">v1.0\n应用诞生\n\nv1.1\n加入分享功能\n\nv1.2\n修复更新包识别错误\n新增页面\n\n1.3\n去掉讨厌的最后两行回车</string>
+    <string name="about_info">作者:逸雪飞扬(XFY9326/ClareX)\nQQ:1069665464\nMIUI体验版内测交流群:342422690\n欢迎提出建议</string>
+    <string name="update">v1.0\n应用诞生\n\nv1.1\n加入分享功能\n\nv1.2\n修复更新包识别错误\n新增页面\n\n1.3\n去掉讨厌的最后两行回车\n更改为选择下载包的下载方式\n菜单中加入一键清空所有目前安装包功能\n添加机型识别数据库，可以准确判断大部分机型名称\n文字细节微调</string>
 </resources>

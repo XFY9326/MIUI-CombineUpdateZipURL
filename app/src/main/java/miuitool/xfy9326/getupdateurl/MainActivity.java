@@ -40,17 +40,17 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         savedataget();
-        if (!environmentscan&&isfirstuse)
+        if (!environmentscan)
         {
             if (phonescan())
             {
                 environmentscan = true;
                 savedataset();
             }
-        }
-        else if(!environmentscan)
-        {
-            show(getString(R.string.no_xiaomi));
+            else
+            {
+                show(getString(R.string.no_xiaomi));
+            }
         }
         licenseshow();
         buttonset();

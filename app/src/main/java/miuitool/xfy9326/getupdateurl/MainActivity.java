@@ -30,8 +30,8 @@ public class MainActivity extends Activity
     private String[] urlarr;
     private boolean[] selectitem;
     private int version_select = 0;
-    private String selectbuttonstr = "";
     private boolean issecondtime = false;
+    private boolean isfirstuse = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,14 +47,35 @@ public class MainActivity extends Activity
             show(getString(R.string.no_xiaomi));
         }
         savedataget();
+        licenseshow();
         buttonset();
         spinnerset(version_select);
     }
-
+    
+    private void licenseshow()
+    {
+        if(isfirstuse)
+        {
+            AlertDialog.Builder readme = new AlertDialog.Builder(this);
+            readme.setTitle(getString(R.string.readme_title));
+            readme.setMessage(getString(R.string.readme));
+            readme.setCancelable(false);
+            readme.setPositiveButton(getString(R.string.done),new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface d,int p)
+                {
+                    isfirstuse = false;
+                    savedataset();
+                }
+            });
+            readme.show();
+        }
+    }
+    
     private void savedataget()
     {
         SharedPreferences data= getSharedPreferences("Data", Activity.MODE_PRIVATE);
         version_select = data.getInt("Spinner_Select", 0);
+        isfirstuse = data.getBoolean("First_Use",true);
     }
 
     private void savedataset()
@@ -62,6 +83,7 @@ public class MainActivity extends Activity
         SharedPreferences data = getSharedPreferences("Data", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = data.edit();
         editor.putInt("Spinner_Select", version_select);
+        editor.putBoolean("First_Use", isfirstuse);
         editor.commit();
     }
 
@@ -321,7 +343,6 @@ public class MainActivity extends Activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        // TODO: Implement this method
         MenuInflater inflater = getMenuInflater(); 
         inflater.inflate(R.menu.main, menu); 
         return super.onCreateOptionsMenu(menu);
@@ -330,7 +351,6 @@ public class MainActivity extends Activity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        // TODO: Implement this method
         int item_id = item.getItemId(); 
         switch (item_id)
         { 

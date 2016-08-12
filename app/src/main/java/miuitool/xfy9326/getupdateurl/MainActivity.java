@@ -6,6 +6,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,68 +15,73 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 import java.io.File;
-import android.widget.AdapterView;
-import android.content.SharedPreferences;
-import java.lang.reflect.Field;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 
 public class MainActivity extends Activity 
 {
-    private boolean environmentscan = false;
+    private boolean environmentscan;
     private String[] filename;
     private String[] urlarr;
     private boolean[] selectitem;
-    private int version_select = 0;
+    private int version_select;
     private boolean issecondtime = false;
-    private boolean isfirstuse = true;
+    private boolean isfirstuse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        if (phonescan())
+        savedataget();
+        if (!environmentscan&&isfirstuse)
         {
-            environmentscan = true;
+            if (phonescan())
+            {
+                environmentscan = true;
+                savedataset();
+            }
         }
-        else
+        else if(!environmentscan)
         {
             show(getString(R.string.no_xiaomi));
         }
-        savedataget();
         licenseshow();
         buttonset();
         spinnerset(version_select);
     }
-    
+
     private void licenseshow()
     {
-        if(isfirstuse)
+        if (isfirstuse)
         {
             AlertDialog.Builder readme = new AlertDialog.Builder(this);
             readme.setTitle(getString(R.string.readme_title));
             readme.setMessage(getString(R.string.readme));
             readme.setCancelable(false);
-            readme.setPositiveButton(getString(R.string.done),new DialogInterface.OnClickListener(){
-                public void onClick(DialogInterface d,int p)
-                {
-                    isfirstuse = false;
-                    savedataset();
-                }
-            });
+            readme.setPositiveButton(getString(R.string.done), new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface d, int p)
+                    {
+                        isfirstuse = false;
+                        savedataset();
+                    }
+                });
             readme.show();
         }
     }
-    
+
     private void savedataget()
     {
         SharedPreferences data= getSharedPreferences("Data", Activity.MODE_PRIVATE);
         version_select = data.getInt("Spinner_Select", 0);
-        isfirstuse = data.getBoolean("First_Use",true);
+        isfirstuse = data.getBoolean("First_Use", true);
+        environmentscan = data.getBoolean("XiaoMi_Device", false);
     }
 
     private void savedataset()
@@ -84,6 +90,7 @@ public class MainActivity extends Activity
         SharedPreferences.Editor editor = data.edit();
         editor.putInt("Spinner_Select", version_select);
         editor.putBoolean("First_Use", isfirstuse);
+        editor.putBoolean("XiaoMi_Device", environmentscan);
         editor.commit();
     }
 
@@ -192,7 +199,7 @@ public class MainActivity extends Activity
         return true;
     }
 
-    private boolean[] arrcreate(int len,boolean bool)
+    private boolean[] arrcreate(int len, boolean bool)
     {
         boolean[] arr=new boolean[len];
         for (int i = 0;i < len;i++)
@@ -239,7 +246,7 @@ public class MainActivity extends Activity
         urlarr = data;
         if (!issecondtime)
         {
-            selectitem = arrcreate(data.length,false);
+            selectitem = arrcreate(data.length, false);
         }
         issecondtime = true;
         AlertDialog.Builder result = new AlertDialog.Builder(this);
@@ -290,7 +297,7 @@ public class MainActivity extends Activity
                 {
                     dialog.dismiss();
                     ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                    cmb.setText(outputstr(urlarr, arrcreate(selectitem.length,true)));
+                    cmb.setText(outputstr(urlarr, arrcreate(selectitem.length, true)));
                     show(getString(R.string.copy_ok));
                 }});
         result.show();
@@ -331,7 +338,35 @@ public class MainActivity extends Activity
         }
         else
         {
+            String miuisdkpkg="com.miui.core";
+            String miuisyspkg="com.miui.system";
+            String miuirompkg="com.miui.rom";
+            if(isinstalled(miuisdkpkg)||isinstalled(miuisyspkg)||isinstalled(miuirompkg))
+            {
+                return true;
+            }
             return false;
+        }
+    }
+
+    private boolean isinstalled(String pkgname)
+    {
+        PackageInfo pkginfo;
+        try
+        {
+            pkginfo = getPackageManager().getPackageInfo(pkgname, 0);
+        }
+        catch (NameNotFoundException e)
+        {
+            pkginfo = null;
+        }
+        if(pkginfo == null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 
@@ -395,7 +430,7 @@ public class MainActivity extends Activity
     private String devicename()
     {
         String type = Build.DEVICE.toString();
-        String result = type;
+        String result;
         switch (type)
         {
             case "Mi one plus":
@@ -499,6 +534,9 @@ public class MainActivity extends Activity
                 break;
             case "kenzo":
                 result = "红米Note3全网通版";
+                break;
+            default:
+                result = type;
                 break;
         }
         return result;

@@ -1,87 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:gravity="center"
-	android:padding="10dp"
-	android:orientation="vertical">
-
-	<TextView
-		android:layout_height="50dp"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:layout_width="wrap_content"
-		android:text="@string/title"
-		android:textSize="40sp"/>
-
-	<View
-		android:layout_height="22dp"
-		android:layout_width="match_parent"/>
-
-	<TextView
-		android:layout_height="wrap_content"
-		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:layout_width="wrap_content"
-		android:text="@string/before_use"/>
-
-	<View
-		android:layout_height="60dp"
-		android:layout_width="1dp"/>
+	android:layout_height="wrap_content"
+	android:layout_width="wrap_content"
+	android:layout_gravity="center">
 
 	<LinearLayout
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:padding="10dp"
+		android:orientation="vertical"
 		android:gravity="center">
+
+		<TextView
+			android:layout_height="50dp"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_width="wrap_content"
+			android:text="@string/title"
+			android:textSize="40sp"/>
+
+		<View
+			android:layout_height="22dp"
+			android:layout_width="match_parent"/>
 
 		<TextView
 			android:layout_height="wrap_content"
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:layout_width="wrap_content"
-			android:text="@string/zip_version"
+			android:text="@string/before_use"/>
+
+		<View
+			android:layout_height="60dp"
+			android:layout_width="1dp"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="wrap_content"
+				android:text="@string/zip_version"
+				android:textSize="18sp"/>
+
+			<Spinner
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:id="@+id/version_selecter"/>
+
+		</LinearLayout>
+
+		<View
+			android:layout_height="80dp"
+			android:layout_width="1dp"/>
+
+		<Button
+			android:layout_height="75dp"
+			android:layout_width="215dp"
+			android:text="@string/start_button"
+			android:id="@+id/start_button"
 			android:textSize="18sp"/>
 
-		<Spinner
+		<View
+			android:layout_height="1dp"
+			android:layout_width="match_parent"/>
+
+		<LinearLayout
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:id="@+id/version_selecter"/>
+			android:orientation="horizontal"
+			android:gravity="center">
+
+			<CheckBox
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:id="@+id/copyurl_checkbox"/>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="@string/only_copy_url"
+				android:textSize="18sp"
+				android:id="@+id/only_copy_url_text"/>
+
+		</LinearLayout>
 
 	</LinearLayout>
 
-	<View
-		android:layout_height="80dp"
-		android:layout_width="1dp"/>
-
-	<Button
-		android:layout_height="75dp"
-		android:layout_width="215dp"
-		android:text="@string/start_button"
-		android:id="@+id/start_button"
-		android:textSize="18sp"/>
-
-	<View
-		android:layout_height="1dp"
-		android:layout_width="match_parent"/>
-
-	<LinearLayout
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:orientation="horizontal"
-		android:gravity="center">
-
-		<CheckBox
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:id="@+id/copyurl_checkbox"/>
-
-		<TextView
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:text="@string/only_copy_url"
-			android:textSize="18sp"
-			android:id="@+id/only_copy_url_text"/>
-
-	</LinearLayout>
-
-</LinearLayout>
+</ScrollView>
 

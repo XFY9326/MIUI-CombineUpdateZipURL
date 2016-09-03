@@ -8,8 +8,8 @@ android {
         applicationId "miuitool.xfy9326.getupdateurl"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 5
-        versionName "1.4"
+        versionCode 6
+        versionName "1.5"
     }
     buildTypes {
         release {

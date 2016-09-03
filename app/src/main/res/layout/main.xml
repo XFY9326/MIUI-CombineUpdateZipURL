@@ -59,5 +59,29 @@
 		android:id="@+id/start_button"
 		android:textSize="18sp"/>
 
+	<View
+		android:layout_height="1dp"
+		android:layout_width="match_parent"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:orientation="horizontal"
+		android:gravity="center">
+
+		<CheckBox
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:id="@+id/copyurl_checkbox"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="@string/only_copy_url"
+			android:textSize="18sp"
+			android:id="@+id/only_copy_url_text"/>
+
+	</LinearLayout>
+
 </LinearLayout>
 

@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,21 +20,24 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.File;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 
 public class MainActivity extends Activity 
 {
     private boolean environmentscan;
+    private CheckBox copy_url;
     private String[] filename;
     private String[] urlarr;
     private boolean[] selectitem;
     private int version_select;
     private boolean issecondtime = false;
     private boolean isfirstuse;
+    private boolean only_copy_url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -82,6 +87,7 @@ public class MainActivity extends Activity
         version_select = data.getInt("Spinner_Select", 0);
         isfirstuse = data.getBoolean("First_Use", true);
         environmentscan = data.getBoolean("XiaoMi_Device", false);
+        only_copy_url = data.getBoolean("Only_Copy_Url", false);
     }
 
     private void savedataset()
@@ -91,6 +97,7 @@ public class MainActivity extends Activity
         editor.putInt("Spinner_Select", version_select);
         editor.putBoolean("First_Use", isfirstuse);
         editor.putBoolean("XiaoMi_Device", environmentscan);
+        editor.putBoolean("Only_Copy_Url", only_copy_url);
         editor.commit();
     }
 
@@ -128,6 +135,32 @@ public class MainActivity extends Activity
                     }
                 }
             });
+        copy_url = (CheckBox) findViewById(R.id.copyurl_checkbox);
+        copy_url.setChecked(only_copy_url);
+        copy_url.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                public void onCheckedChanged(CompoundButton p1, boolean p2)
+                {
+                    only_copy_url = p2;
+                    savedataset();
+                }
+            });
+        TextView copy_url_text = (TextView) findViewById(R.id.only_copy_url_text);
+        copy_url_text.setOnClickListener(new OnClickListener(){
+            public void onClick(View p)
+            {
+                if(only_copy_url)
+                {
+                    copy_url.setChecked(false);
+                    only_copy_url = false;
+                }
+                else
+                {
+                    copy_url.setChecked(true);
+                    only_copy_url = true;
+                }
+                savedataset();
+            }
+        });
     }
 
     private void geturl()
@@ -152,13 +185,27 @@ public class MainActivity extends Activity
                         {
                             String[] namedata = filename[i].split("_");
                             zipname[i] = namedata[2] + " " + getString(R.string.huge);
-                            filename[i] = namedata[2] + " " + getString(R.string.huge) + getString(R.string.download) + "\n" + "http://bigota.d.miui.com/" + namedata[2] + "/" + filename[i];
+                            if (only_copy_url)
+                            {
+                                filename[i] = "http://bigota.d.miui.com/" + namedata[2] + "/" + filename[i];
+                            }
+                            else
+                            {
+                                filename[i] = namedata[2] + " " + getString(R.string.huge) + getString(R.string.download) + "\n" + "http://bigota.d.miui.com/" + namedata[2] + "/" + filename[i];
+                            }
                         }
                         else if (nametemp.equalsIgnoreCase("miui-"))
                         {
                             String[] namedata = filename[i].split("-");
                             zipname[i] = namedata[3] + "~" + namedata[4] + " " + getString(R.string.ota);
-                            filename[i] = namedata[3] + "~" + namedata[4] + " " + getString(R.string.ota) + getString(R.string.download) + "\n" + "http://bigota.d.miui.com/" + namedata[4] + "/" + filename[i];
+                            if (only_copy_url)
+                            {
+                                filename[i] = "http://bigota.d.miui.com/" + namedata[4] + "/" + filename[i];
+                            }
+                            else
+                            {
+                                filename[i] = namedata[3] + "~" + namedata[4] + " " + getString(R.string.ota) + getString(R.string.download) + "\n" + "http://bigota.d.miui.com/" + namedata[4] + "/" + filename[i];
+                            }
                         }
                         else
                         {
@@ -222,13 +269,20 @@ public class MainActivity extends Activity
             }
         }
         String output = "";
-        if (version_select == 0)
+        if (only_copy_url)
         {
-            output = getString(R.string.device) + " " + devicename() + " \n\n" + str;
+            output = str;
         }
         else
         {
-            output = getString(R.string.device) + " " + devicename() + " \n\n" + getString(R.string.zip_version) + version + "\n\n" + str;
+            if (version_select == 0)
+            {
+                output = getString(R.string.device) + " " + devicename() + " \n\n" + str;
+            }
+            else
+            {
+                output = getString(R.string.device) + " " + devicename() + " \n\n" + getString(R.string.zip_version) + version + "\n\n" + str;
+            }
         }
         if (output.length() < 2)
         {
@@ -341,7 +395,7 @@ public class MainActivity extends Activity
             String miuisdkpkg="com.miui.core";
             String miuisyspkg="com.miui.system";
             String miuirompkg="com.miui.rom";
-            if(isinstalled(miuisdkpkg)||isinstalled(miuisyspkg)||isinstalled(miuirompkg))
+            if (isinstalled(miuisdkpkg) || isinstalled(miuisyspkg) || isinstalled(miuirompkg))
             {
                 return true;
             }
@@ -360,7 +414,7 @@ public class MainActivity extends Activity
         {
             pkginfo = null;
         }
-        if(pkginfo == null)
+        if (pkginfo == null)
         {
             return false;
         }

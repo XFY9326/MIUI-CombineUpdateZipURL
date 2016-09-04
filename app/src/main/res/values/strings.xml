@@ -26,7 +26,10 @@
     <string name="only_copy_url">只复制安装包下载的网址</string>
     <string name="about">关于作者</string>
     <string name="readme_title">使用须知</string>
+    <string name="system_version">系统版本:</string>
+    <string name="show_devicename">复制时显示当前手机型号信息</string>
+    <string name="miuiversion">当前MIUI版本:</string>
     <string name="readme">本应用仅做组合MIUI安装升级包地址使用，任何使用者分享此地址所导致的问题本作者一概不负法律责任。\n请合理使用本应用！</string>
     <string name="about_info">作者:逸雪飞扬\nQQ:1069665464\nMIUI体验版内测交流群:342422690\n欢迎提出建议\n\n本代码遵守 Apache License 2.0 开源协议\nGithub: https://github.com/XFY9326/MIUI-CombineUpdateZipURL</string>
-    <string name="update">v1.0\n应用诞生\n\nv1.1\n加入分享功能\n\nv1.2\n修复更新包识别错误\n新增页面\n\n1.3\n去掉讨厌的最后两行回车\n更改为选择下载包的下载方式\n菜单中加入一键清空所有目前安装包功能\n添加机型识别数据库，可以准确判断大部分机型名称\n文字细节微调\n\n1.4\n选项中新增Root包\n加入第一次使用的提示\n增加对第三方适配的MIUI系统的支持\n\n1.5\n增加只复制下载地址的功能\n修复可能导致的UI显示错误问题</string>
+    <string name="update">v1.0\n应用诞生\n\nv1.1\n加入分享功能\n\nv1.2\n修复更新包识别错误\n新增页面\n\n1.3\n去掉讨厌的最后两行回车\n更改为选择下载包的下载方式\n菜单中加入一键清空所有目前安装包功能\n添加机型识别数据库，可以准确判断大部分机型名称\n文字细节微调\n\n1.4\n选项中新增Root包\n加入第一次使用的提示\n增加对第三方适配的MIUI系统的支持\n\n1.5\n增加只复制下载地址的功能\n修复可能导致的UI显示错误问题\n\n1.6\n增加国际版和波兰版选项\n增加手机型号显示开关\n增加选择复制时的系统版本显示\n增加显示当前版本</string>
 </resources>

@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.File;
@@ -38,6 +39,7 @@ public class MainActivity extends Activity
     private boolean issecondtime = false;
     private boolean isfirstuse;
     private boolean only_copy_url;
+    private boolean show_device_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,6 +62,11 @@ public class MainActivity extends Activity
         licenseshow();
         buttonset();
         spinnerset(version_select);
+        TextView miui_version = (TextView) findViewById(R.id.miui_version);
+        if (environmentscan)
+        {
+            miui_version.setText(Build.VERSION.INCREMENTAL.toString());
+        }
     }
 
     private void licenseshow()
@@ -88,6 +95,7 @@ public class MainActivity extends Activity
         isfirstuse = data.getBoolean("First_Use", true);
         environmentscan = data.getBoolean("XiaoMi_Device", false);
         only_copy_url = data.getBoolean("Only_Copy_Url", false);
+        show_device_name = data.getBoolean("Show_DeviceName", true);
     }
 
     private void savedataset()
@@ -98,6 +106,7 @@ public class MainActivity extends Activity
         editor.putBoolean("First_Use", isfirstuse);
         editor.putBoolean("XiaoMi_Device", environmentscan);
         editor.putBoolean("Only_Copy_Url", only_copy_url);
+        editor.putBoolean("Show_DeviceName", show_device_name);
         editor.commit();
     }
 
@@ -146,21 +155,30 @@ public class MainActivity extends Activity
             });
         TextView copy_url_text = (TextView) findViewById(R.id.only_copy_url_text);
         copy_url_text.setOnClickListener(new OnClickListener(){
-            public void onClick(View p)
-            {
-                if(only_copy_url)
+                public void onClick(View p)
                 {
-                    copy_url.setChecked(false);
-                    only_copy_url = false;
+                    if (only_copy_url)
+                    {
+                        copy_url.setChecked(false);
+                        only_copy_url = false;
+                    }
+                    else
+                    {
+                        copy_url.setChecked(true);
+                        only_copy_url = true;
+                    }
+                    savedataset();
                 }
-                else
+            });
+        Switch devicename = (Switch) findViewById(R.id.devicename_switch);
+        devicename.setChecked(show_device_name);
+        devicename.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                public void onCheckedChanged(CompoundButton p1, boolean p2)
                 {
-                    copy_url.setChecked(true);
-                    only_copy_url = true;
+                    show_device_name = p2;
+                    savedataset();
                 }
-                savedataset();
-            }
-        });
+            });
     }
 
     private void geturl()
@@ -184,7 +202,7 @@ public class MainActivity extends Activity
                         if (nametemp.equalsIgnoreCase("miui_"))
                         {
                             String[] namedata = filename[i].split("_");
-                            zipname[i] = namedata[2] + " " + getString(R.string.huge);
+                            zipname[i] = namedata[2] + " " + getString(R.string.huge) + "\n" + getString(R.string.system_version) + namedata[4].substring(0, namedata[4].length() - 4);
                             if (only_copy_url)
                             {
                                 filename[i] = "http://bigota.d.miui.com/" + namedata[2] + "/" + filename[i];
@@ -197,7 +215,7 @@ public class MainActivity extends Activity
                         else if (nametemp.equalsIgnoreCase("miui-"))
                         {
                             String[] namedata = filename[i].split("-");
-                            zipname[i] = namedata[3] + "~" + namedata[4] + " " + getString(R.string.ota);
+                            zipname[i] = namedata[3] + "~" + namedata[4] + " " + getString(R.string.ota) + "\n" + getString(R.string.system_version) + namedata[6].substring(0, namedata[6].length() - 4);
                             if (only_copy_url)
                             {
                                 filename[i] = "http://bigota.d.miui.com/" + namedata[4] + "/" + filename[i];
@@ -277,11 +295,25 @@ public class MainActivity extends Activity
         {
             if (version_select == 0)
             {
-                output = getString(R.string.device) + " " + devicename() + " \n\n" + str;
+                if (show_device_name)
+                {
+                    output = getString(R.string.device) + " " + devicename() + " \n\n" + str;
+                }
+                else
+                {
+                    output = str;
+                }
             }
             else
             {
-                output = getString(R.string.device) + " " + devicename() + " \n\n" + getString(R.string.zip_version) + version + "\n\n" + str;
+                if (show_device_name)
+                {
+                    output = getString(R.string.device) + " " + devicename() + " \n\n" + getString(R.string.zip_version) + version + "\n\n" + str;
+                }
+                else
+                {
+                    output = getString(R.string.zip_version) + version + "\n\n" + str;
+                }
             }
         }
         if (output.length() < 2)

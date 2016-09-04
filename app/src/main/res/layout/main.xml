@@ -30,7 +30,36 @@
 			android:text="@string/before_use"/>
 
 		<View
-			android:layout_height="60dp"
+			android:layout_height="20dp"
+			android:layout_width="1dp"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="wrap_content"
+				android:text="@string/miuiversion"/>
+
+			<View
+				android:layout_height="10dp"
+				android:layout_width="1dp"/>
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_width="wrap_content"
+				android:id="@+id/miui_version"
+				android:text="UNKNOW"/>
+
+		</LinearLayout>
+
+		<View
+			android:layout_height="20dp"
 			android:layout_width="1dp"/>
 
 		<LinearLayout
@@ -54,7 +83,30 @@
 		</LinearLayout>
 
 		<View
-			android:layout_height="80dp"
+			android:layout_height="20dp"
+			android:layout_width="match_parent"/>
+
+		<LinearLayout
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center">
+
+			<TextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:text="@string/show_devicename"
+				android:textSize="18sp"/>
+
+			<Switch
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:id="@+id/devicename_switch"/>
+
+		</LinearLayout>
+
+		<View
+			android:layout_height="55dp"
 			android:layout_width="1dp"/>
 
 		<Button

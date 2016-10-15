@@ -332,7 +332,7 @@ public class MainActivity extends Activity
         urlarr = data;
         if (!issecondtime)
         {
-            selectitem = arrcreate(data.length, false);
+            selectitem = arrcreate(data.length, true);
         }
         issecondtime = true;
         AlertDialog.Builder result = new AlertDialog.Builder(this);

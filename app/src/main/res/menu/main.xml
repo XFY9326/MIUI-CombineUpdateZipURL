@@ -3,10 +3,7 @@
         android:id="@+id/delete_all"
         android:title="@string/delete_zips"
         android:visible="true"/>
-    <item 
-        android:id="@+id/update_info" 
-        android:title="@string/update_info" 
-        android:visible="true" /> 
+	
     <item 
         android:id="@+id/about" 
         android:title="@string/about" 

@@ -10,6 +10,97 @@
         <item>特殊版本</item>
         <item>Root包</item>
         <item>国际版</item>
-        <item>波兰版</item>
     </string-array>
+	<string-array name="phone_type">
+		<item>Mi one plus</item>
+		<item>aries</item>
+		<item>taurus</item>
+		<item>pisces</item>
+		<item>cancro</item>
+		<item>ferrari</item>
+		<item>libra</item>
+		<item>aqua</item>
+		<item>gemini</item>
+		<item>capricorn</item>
+		<item>natrium</item>
+		<item>virgo</item>
+		<item>scorpio</item>
+		<item>leo</item>
+		<item>hydrogen</item>
+		<item>helium</item>
+		<item>lithium</item>
+		<item>mocha</item>
+		<item>latte</item>
+		<item>wt93007</item>
+		<item>wt98007</item>
+		<item>armani</item>
+		<item>wt93807</item>
+		<item>wt96007</item>
+		<item>wt86047</item>
+		<item>wt88047</item>
+		<item>lte26007</item>
+		<item>wt86047</item>
+		<item>ido</item>
+		<item>land</item>
+		<item>omega</item>
+		<item>prada</item>
+		<item>rolex</item>
+		<item>markw</item>
+		<item>santoni</item>
+		<item>lcsh92_wet_tdd</item>
+		<item>lcsh92_wet_jb9</item>
+		<item>dior</item>
+		<item>gucci</item>
+		<item>hermes</item>
+		<item>hennessy</item>
+		<item>kenzo</item>
+		<item>nikel</item>
+		<item>mido</item>
+	</string-array>
+	<string-array name="phone_name">
+		<item>小米1/1S</item>
+		<item>小米2/2S</item>
+		<item>小米2A</item>
+		<item>小米3移动版</item>
+		<item>小米3联通/电信 小米4 \n注：小米4电信4G版同型号不同包</item>
+		<item>小米4i</item>
+		<item>小米4c</item>
+		<item>小米4s</item>
+		<item>小米5</item>
+		<item>小米5s</item>
+		<item>小米5s Plus</item>
+		<item>小米Note</item>
+		<item>小米Note顶配版</item>
+		<item>小米Note2</item>
+		<item>小米Max标配版</item>
+		<item>小米Max高配版</item>
+		<item>小米Mix</item>
+		<item>小米平板</item>
+		<item>小米平板2</item>
+		<item>红米1移动版</item>
+		<item>红米1联通版</item>
+		<item>红米1s联通/电信</item>
+		<item>红米1s移动3G</item>
+		<item>红米1s移动4G</item>
+		<item>红米2移动版</item>
+		<item>红米2联通/电信</item>
+		<item>红米2A</item>
+		<item>红米2A高配版</item>
+		<item>红米3/Pro</item>
+		<item>红米3S/X</item>
+		<item>红米Pro</item>
+		<item>红米4</item>
+		<item>红米4A</item>
+		<item>红米4Pro</item>
+		<item>红米4X</item>
+		<item>红米Note移动3G</item>
+		<item>红米Note联通3G</item>
+		<item>红米Note 4G单卡版</item>
+		<item>红米Note 4G双卡版</item>
+		<item>红米Note2</item>
+		<item>红米Note3双网通版</item>
+		<item>红米Note3全网通版</item>
+		<item>红米Note4</item>
+		<item>红米Note4X</item>
+	</string-array>
 </resources>

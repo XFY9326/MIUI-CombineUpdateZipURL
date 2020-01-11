@@ -16,7 +16,10 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="q">
 
-        <activity android:name=".activities.MainActivity">
+        <activity
+            android:name=".activities.MainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

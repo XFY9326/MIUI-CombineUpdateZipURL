@@ -1,7 +1,9 @@
 package tool.xfy9326.miui.getupdateurl.activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
@@ -233,8 +235,20 @@ public class MainActivity extends AppCompatActivity {
     private void showAboutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(R.string.about);
-        builder.setMessage(R.string.about_msg);
+        builder.setMessage(getString(R.string.about_msg, getString(R.string.github_url)));
         builder.setPositiveButton(android.R.string.yes, null);
+        builder.setNeutralButton(R.string.access_website, (dialog, which) -> {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setData(Uri.parse(getString(R.string.github_url)));
+            try {
+                startActivity(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(MainActivity.this, R.string.browser_launch_failed, Toast.LENGTH_SHORT).show();
+            }
+        });
         builder.show();
     }
 

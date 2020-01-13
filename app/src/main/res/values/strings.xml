@@ -19,7 +19,7 @@
     <string name="package_share_title">选择你要分享的安装包</string>
     <string name="package_info_stable">%1$s %2$s</string>
     <string name="package_info_none_stable">%1$s %2$s～%3$s</string>
-    <string name="current_system_version">机型：%1$s(%2$s)\u3000\u3000安卓版本：%3$d\nMIUI版本：%4$s\u3000\u3000MIUI版本号：%5$s</string>
+    <string name="current_system_version">机型：%1$s(%2$s)\u3000\u3000安卓版本：%3$s(%4$d)\nMIUI版本：%5$s\u3000\u3000MIUI版本号：%6$s</string>
     <string name="copy_to_paste_board">复制到粘贴板</string>
     <string name="loading">正在加载中</string>
     <string name="copy_to_paste_board_success">复制到粘贴板成功！</string>

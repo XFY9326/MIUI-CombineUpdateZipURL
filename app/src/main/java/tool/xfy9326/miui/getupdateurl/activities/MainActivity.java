@@ -31,6 +31,7 @@ import tool.xfy9326.miui.getupdateurl.methods.BaseMethod;
 import tool.xfy9326.miui.getupdateurl.methods.I18NMethod;
 import tool.xfy9326.miui.getupdateurl.methods.ShareMethod;
 import tool.xfy9326.miui.getupdateurl.methods.UrlMethod;
+import tool.xfy9326.miui.getupdateurl.tools.PropertyUtils;
 import tool.xfy9326.miui.getupdateurl.tools.RootUtils;
 import tool.xfy9326.miui.getupdateurl.utils.UpdatePackageType;
 import tool.xfy9326.miui.getupdateurl.utils.UpdateUrl;
@@ -94,7 +95,7 @@ public class MainActivity extends Activity {
 
     private void viewInit() {
         TextView currentSystemVersion = findViewById(R.id.tv_currentSystemVersion);
-        currentSystemVersion.setText(getString(R.string.current_system_version, Build.MODEL, Build.DEVICE.toLowerCase(), Build.VERSION.SDK_INT, Build.VERSION.RELEASE, Build.VERSION.INCREMENTAL));
+        currentSystemVersion.setText(getString(R.string.current_system_version, Build.MODEL, Build.DEVICE.toLowerCase(), Build.VERSION.RELEASE, Build.VERSION.SDK_INT, PropertyUtils.get(Constants.MIUI_VERSION_NAME, Build.UNKNOWN, String.class), Build.VERSION.INCREMENTAL));
 
         bindCheckBoxWithPreference(R.id.cb_rootMode, Constants.PREFERENCE_ROOT_MODE, Constants.DEFAULT_PREFERENCE_ROOT_MODE, (buttonView, isChecked) -> {
             if (isChecked) {

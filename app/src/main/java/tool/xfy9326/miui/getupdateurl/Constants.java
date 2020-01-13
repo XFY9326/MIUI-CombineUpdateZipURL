@@ -10,6 +10,8 @@ public class Constants {
 
     public static final String UPDATE_SERVER = "https://hugeota.d.miui.com";
 
+    public static final String MIUI_VERSION_NAME = "ro.miui.ui.version.name";
+
     public static final String HTTP = "http://";
     public static final String HTTPS = "https://";
     public static final String URL_SPILT = "/";

@@ -22,6 +22,7 @@ public class Constants {
 
     public static final String PREFERENCE_ROOT_MODE = "ROOT_MODE";
     public static final String PREFERENCE_NONE_MIUI_FORCE_USE = "NONE_MIUI_FORCE_USE";
+    public static final String PREFERENCE_SHARE_FORMAT_STRING = "SHARE_FORMAT_STRING_STABLE";
 
     public static final boolean DEFAULT_PREFERENCE_ROOT_MODE = false;
     public static final boolean DEFAULT_PREFERENCE_NONE_MIUI_FORCE_USE = false;

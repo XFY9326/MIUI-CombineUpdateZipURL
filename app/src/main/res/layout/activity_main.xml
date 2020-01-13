@@ -1,54 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
-    android:gravity="center|start"
-    android:orientation="vertical"
+    android:fillViewport="true"
     tools:context=".activities.MainActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/app_name"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
-    <CheckBox
-        android:id="@+id/cb_rootMode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="150dp"
-        android:text="@string/use_root_mode" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center">
+        android:layout_margin="10dp"
+        android:gravity="center|start|top"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_getUpdateUrl"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="18dp"
-            android:text="@string/get_update_url"
-            tools:ignore="ButtonStyle" />
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:text="@string/app_name"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btn_useAttention"
+        <TextView
+            android:id="@+id/tv_currentSystemVersion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:drawableStart="@drawable/ic_info"
-            android:drawablePadding="10dp"
-            android:padding="15dp"
-            android:text="@string/use_attention_title"
-            tools:ignore="ButtonStyle" />
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:text="@string/current_system_version" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="45dp"
+            android:text="@string/share_string" />
+
+        <EditText
+            android:id="@+id/et_shareString"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="45dp"
+            android:background="@drawable/drawable_input"
+            android:gravity="top|start"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical"
+            android:textSize="12sp"
+            tools:ignore="LabelFor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/btn_restore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="@string/restore"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/btn_formatGuide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:padding="15dp"
+                android:text="@string/format_guide"
+                tools:ignore="ButtonStyle" />
+
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/cb_rootMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="45dp"
+            android:text="@string/use_root_mode" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_getUpdateUrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="18dp"
+                android:text="@string/get_update_url"
+                tools:ignore="ButtonStyle" />
+
+            <Button
+                android:id="@+id/btn_useAttention"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:drawableStart="@drawable/ic_info"
+                android:drawablePadding="10dp"
+                android:padding="15dp"
+                android:text="@string/use_attention_title"
+                tools:ignore="ButtonStyle" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

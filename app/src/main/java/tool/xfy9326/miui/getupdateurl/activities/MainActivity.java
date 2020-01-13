@@ -4,14 +4,20 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
 
 import java.util.Arrays;
@@ -87,14 +93,21 @@ public class MainActivity extends Activity {
     }
 
     private void viewInit() {
-        final CheckBox rootModeCheckBox = findViewById(R.id.cb_rootMode);
-        rootModeCheckBox.setChecked(sharedPreferences.getBoolean(Constants.PREFERENCE_ROOT_MODE, Constants.DEFAULT_PREFERENCE_ROOT_MODE));
-        rootModeCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        TextView currentSystemVersion = findViewById(R.id.tv_currentSystemVersion);
+        currentSystemVersion.setText(getString(R.string.current_system_version, Build.MODEL, Build.DEVICE.toLowerCase(), Build.VERSION.SDK_INT, Build.VERSION.RELEASE, Build.VERSION.INCREMENTAL));
+
+        bindCheckBoxWithPreference(R.id.cb_rootMode, Constants.PREFERENCE_ROOT_MODE, Constants.DEFAULT_PREFERENCE_ROOT_MODE, (buttonView, isChecked) -> {
             if (isChecked) {
                 RootUtils.isRootAvailable();
             }
-            sharedPreferences.edit().putBoolean(Constants.PREFERENCE_ROOT_MODE, isChecked).apply();
         });
+
+        final EditText shareString = findViewById(R.id.et_shareString);
+        shareString.setText(getString(R.string.default_share_template));
+
+        findViewById(R.id.btn_restore).setOnClickListener(v -> shareString.setText(getString(R.string.default_share_template)));
+        findViewById(R.id.btn_save).setOnClickListener(v -> sharedPreferences.edit().putString(Constants.PREFERENCE_SHARE_FORMAT_STRING, shareString.getText().toString().trim()).apply());
+        findViewById(R.id.btn_formatGuide).setOnClickListener(v -> showFormatString());
 
         findViewById(R.id.btn_useAttention).setOnClickListener(v -> showUseAttention());
         findViewById(R.id.btn_getUpdateUrl).setOnClickListener(v -> {
@@ -104,7 +117,7 @@ public class MainActivity extends Activity {
             } else {
                 new Thread(() -> {
                     HashSet<UpdateUrl> updateUrls = new HashSet<>();
-                    if (rootModeCheckBox.isChecked()) {
+                    if (((CheckBox) findViewById(R.id.cb_rootMode)).isChecked()) {
                         if (RootUtils.isRootAvailable()) {
                             updateUrls.addAll(UrlMethod.getUrlFromSystemFile());
                         } else {
@@ -120,7 +133,7 @@ public class MainActivity extends Activity {
                         Toast.makeText(MainActivity.this, R.string.no_update_package_found, Toast.LENGTH_SHORT).show();
                         Looper.prepare();
                     } else {
-                        runOnUiThread(() -> showPackageShare(updateUrls));
+                        runOnUiThread(() -> showPackageShare(shareString.getText().toString().trim(), updateUrls));
                     }
                 }).start();
                 Toast.makeText(MainActivity.this, R.string.loading, Toast.LENGTH_SHORT).show();
@@ -137,7 +150,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void showPackageShare(final Set<UpdateUrl> updateUrls) {
+    private void showPackageShare(final String formatString, final Set<UpdateUrl> updateUrls) {
         final HashSet<UpdateUrl> selectUrl = new HashSet<>(updateUrls);
         final UpdateUrl[] updateUrlList = updateUrls.toArray(new UpdateUrl[0]);
 
@@ -147,9 +160,9 @@ public class MainActivity extends Activity {
 
         for (int i = 0; i < updateUrlList.length; i++) {
             if (updateUrlList[i].getUpdatePackageType() == UpdatePackageType.COMPLETE) {
-                itemList[i] = getString(R.string.package_info_stable, I18NMethod.getUpdatePackageType(MainActivity.this, updateUrlList[i].getUpdatePackageType()), updateUrlList[i].getUpdateToVersion(), updateUrlList[i].getUpdateAndroidVersion());
+                itemList[i] = getString(R.string.package_info_stable, I18NMethod.getUpdatePackageType(MainActivity.this, updateUrlList[i].getUpdatePackageType()), updateUrlList[i].getUpdateToVersion());
             } else {
-                itemList[i] = getString(R.string.package_info_none_stable, I18NMethod.getUpdatePackageType(MainActivity.this, updateUrlList[i].getUpdatePackageType()), updateUrlList[i].getUpdateFromVersion(), updateUrlList[i].getUpdateToVersion(), updateUrlList[i].getUpdateAndroidVersion());
+                itemList[i] = getString(R.string.package_info_none_stable, I18NMethod.getUpdatePackageType(MainActivity.this, updateUrlList[i].getUpdatePackageType()), updateUrlList[i].getUpdateFromVersion(), updateUrlList[i].getUpdateToVersion());
             }
         }
 
@@ -163,11 +176,11 @@ public class MainActivity extends Activity {
             }
         });
         builder.setPositiveButton(R.string.share, (dialog, which) -> {
-            String text = ShareMethod.buildShareText(MainActivity.this, selectUrl.toArray(new UpdateUrl[0]));
+            String text = ShareMethod.buildShareText(MainActivity.this, selectUrl.toArray(new UpdateUrl[0]), formatString);
             ShareMethod.shareText(MainActivity.this, text);
         });
         builder.setNeutralButton(R.string.copy_to_paste_board, (dialog, which) -> {
-            String text = ShareMethod.buildShareText(MainActivity.this, selectUrl.toArray(new UpdateUrl[0]));
+            String text = ShareMethod.buildShareText(MainActivity.this, selectUrl.toArray(new UpdateUrl[0]), formatString);
             ShareMethod.copyToPasteBoard(MainActivity.this, text);
             Toast.makeText(MainActivity.this, R.string.copy_to_paste_board_success, Toast.LENGTH_SHORT).show();
         });
@@ -175,10 +188,30 @@ public class MainActivity extends Activity {
         builder.show();
     }
 
+    @SuppressWarnings("SameParameterValue")
+    private void bindCheckBoxWithPreference(@IdRes int resId, final String prefKey, final boolean defaultValue, @Nullable CompoundButton.OnCheckedChangeListener listener) {
+        CheckBox checkBox = findViewById(resId);
+        checkBox.setChecked(sharedPreferences.getBoolean(prefKey, defaultValue));
+        checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (listener != null) {
+                listener.onCheckedChanged(buttonView, isChecked);
+            }
+            sharedPreferences.edit().putBoolean(prefKey, isChecked).apply();
+        });
+    }
+
     private void showAboutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(R.string.about);
         builder.setMessage(R.string.about_msg);
+        builder.setPositiveButton(android.R.string.yes, null);
+        builder.show();
+    }
+
+    private void showFormatString() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle(R.string.format_guide);
+        builder.setMessage(R.string.format_guide_msg);
         builder.setPositiveButton(android.R.string.yes, null);
         builder.show();
     }

@@ -8,7 +8,7 @@ public class Constants {
     public static final String XIAOMI = "Xiaomi";
     public static final String MIUI = "miui";
 
-    public static final String UPDATE_SERVER = "https://hugeota.d.miui.com";
+    public static final String[] UPDATE_SERVER = {"https://hugeota.d.miui.com", "https://bigota.d.miui.com"};
 
     public static final String MIUI_VERSION_NAME = "ro.miui.ui.version.name";
 
@@ -16,6 +16,7 @@ public class Constants {
     public static final String HTTPS = "https://";
     public static final String URL_SPILT = "/";
     public static final String FILE_TYPE_SPILT = ".";
+    public static final String EMPTY = "";
 
     public static final String COMPLETE_PACKAGE_SPLIT = "_";
     public static final String OTA_OR_ROOT_PACKAGE_SPLIT = "-";
@@ -25,9 +26,11 @@ public class Constants {
     public static final String PREFERENCE_ROOT_MODE = "ROOT_MODE";
     public static final String PREFERENCE_NONE_MIUI_FORCE_USE = "NONE_MIUI_FORCE_USE";
     public static final String PREFERENCE_SHARE_FORMAT_STRING = "SHARE_FORMAT_STRING_STABLE";
+    public static final String PREFERENCE_UPDATE_SERVER = "UPDATE_SERVER";
 
     public static final boolean DEFAULT_PREFERENCE_ROOT_MODE = false;
     public static final boolean DEFAULT_PREFERENCE_NONE_MIUI_FORCE_USE = false;
+    public static final int DEFAULT_PREFERENCE_UPDATE_SERVER = 0;
 
     public static final String DOWNLOAD_ROM_DIR = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "downloaded_rom";
 

@@ -1,7 +1,5 @@
 package tool.xfy9326.miui.getupdateurl.activities;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -9,15 +7,21 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
 import java.util.Arrays;
@@ -36,7 +40,7 @@ import tool.xfy9326.miui.getupdateurl.tools.RootUtils;
 import tool.xfy9326.miui.getupdateurl.utils.UpdatePackageType;
 import tool.xfy9326.miui.getupdateurl.utils.UpdateUrl;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -113,6 +117,27 @@ public class MainActivity extends Activity {
         });
         findViewById(R.id.btn_formatGuide).setOnClickListener(v -> showFormatString());
 
+        final Spinner updateServerSpinner = findViewById(R.id.sp_updateServer);
+        String[] updateServerNames = new String[Constants.UPDATE_SERVER.length];
+        for (int i = 0; i < Constants.UPDATE_SERVER.length; i++) {
+            updateServerNames[i] = Constants.UPDATE_SERVER[i].replace(Constants.HTTPS, Constants.EMPTY).replace(Constants.HTTP, Constants.EMPTY);
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, updateServerNames);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        updateServerSpinner.setAdapter(adapter);
+        updateServerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                sharedPreferences.edit().putInt(Constants.PREFERENCE_UPDATE_SERVER, position).apply();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        updateServerSpinner.setSelection(sharedPreferences.getInt(Constants.PREFERENCE_UPDATE_SERVER, Constants.DEFAULT_PREFERENCE_UPDATE_SERVER));
+
         findViewById(R.id.btn_useAttention).setOnClickListener(v -> showUseAttention());
         findViewById(R.id.btn_getUpdateUrl).setOnClickListener(v -> {
             if (BaseMethod.hasNoStoragePermission(MainActivity.this)) {
@@ -137,7 +162,7 @@ public class MainActivity extends Activity {
                         Toast.makeText(MainActivity.this, R.string.no_update_package_found, Toast.LENGTH_SHORT).show();
                         Looper.prepare();
                     } else {
-                        runOnUiThread(() -> showPackageShare(shareString.getText().toString().trim(), updateUrls));
+                        runOnUiThread(() -> showPackageShare(Constants.UPDATE_SERVER[updateServerSpinner.getSelectedItemPosition()], shareString.getText().toString().trim(), updateUrls));
                     }
                 }).start();
                 Toast.makeText(MainActivity.this, R.string.loading, Toast.LENGTH_SHORT).show();
@@ -154,7 +179,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void showPackageShare(final String formatString, final Set<UpdateUrl> updateUrls) {
+    private void showPackageShare(final String updateServer, final String formatString, final Set<UpdateUrl> updateUrls) {
         final HashSet<UpdateUrl> selectUrl = new HashSet<>(updateUrls);
         final UpdateUrl[] updateUrlList = updateUrls.toArray(new UpdateUrl[0]);
 
@@ -163,6 +188,7 @@ public class MainActivity extends Activity {
         Arrays.fill(selectList, true);
 
         for (int i = 0; i < updateUrlList.length; i++) {
+            updateUrlList[i].setUpdateServer(updateServer);
             if (updateUrlList[i].getUpdatePackageType() == UpdatePackageType.COMPLETE) {
                 itemList[i] = getString(R.string.package_info_stable, I18NMethod.getUpdatePackageType(MainActivity.this, updateUrlList[i].getUpdatePackageType()), updateUrlList[i].getUpdateToVersion());
             } else {

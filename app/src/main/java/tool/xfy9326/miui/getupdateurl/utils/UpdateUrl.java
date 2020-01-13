@@ -5,10 +5,10 @@ import androidx.annotation.Nullable;
 
 import tool.xfy9326.miui.getupdateurl.Constants;
 
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings("WeakerAccess")
 public class UpdateUrl {
-    private String downloadUrl;
     private String updateFileName;
+    private String updateServer;
 
     private UpdatePackageType updatePackageType;
 
@@ -19,18 +19,22 @@ public class UpdateUrl {
     private String updatePackageMD5;
 
     public UpdateUrl(@NonNull HandlerType type, @NonNull String content) {
+        this(type, content, Constants.UPDATE_SERVER[0]);
+    }
+
+    public UpdateUrl(@NonNull HandlerType type, @NonNull String content, @NonNull String defaultUpdateServer) {
+        this.updateServer = defaultUpdateServer;
         switch (type) {
             case URL:
-                downloadUrl = content;
-                updateFileName = getFileNameFromUrl(downloadUrl);
-                parseUpdateFileName();
+                updateFileName = getFileNameFromUrl(content);
                 break;
             case FILE_NAME:
                 updateFileName = content;
-                parseUpdateFileName();
-                downloadUrl = getUrlFileName(updateToVersion, updateFileName);
                 break;
+            default:
+                throw new RuntimeException("Unknown handler type: " + type);
         }
+        parseUpdateFileName();
     }
 
     private static String getFileNameFromUrl(String downloadUrl) {
@@ -43,8 +47,8 @@ public class UpdateUrl {
         return urlPart[urlPart.length - 1];
     }
 
-    private static String getUrlFileName(String updateToVersion, String updateFileName) {
-        return Constants.UPDATE_SERVER + Constants.URL_SPILT + updateToVersion + Constants.URL_SPILT + updateFileName;
+    private String getUrlFileName(String updateToVersion, String updateFileName) {
+        return updateServer + Constants.URL_SPILT + updateToVersion + Constants.URL_SPILT + updateFileName;
     }
 
     private void parseUpdateFileName() {
@@ -85,7 +89,11 @@ public class UpdateUrl {
 
     @NonNull
     public String getDownloadUrl() {
-        return downloadUrl;
+        if (updateServer == null) {
+            throw new RuntimeException("Update server is null!");
+        } else {
+            return getUrlFileName(updateToVersion, updateFileName);
+        }
     }
 
     @NonNull
@@ -131,7 +139,7 @@ public class UpdateUrl {
     @Override
     public String toString() {
         return "UpdateUrl{" +
-                "downloadUrl='" + downloadUrl + '\'' +
+                "updateServer='" + updateServer + '\'' +
                 ", updateFileName='" + updateFileName + '\'' +
                 ", updatePackageType=" + updatePackageType +
                 ", updateFromVersion='" + updateFromVersion + '\'' +
@@ -155,6 +163,9 @@ public class UpdateUrl {
         return false;
     }
 
+    public void setUpdateServer(@NonNull String updateServer) {
+        this.updateServer = updateServer;
+    }
 
     public enum HandlerType {
         URL,

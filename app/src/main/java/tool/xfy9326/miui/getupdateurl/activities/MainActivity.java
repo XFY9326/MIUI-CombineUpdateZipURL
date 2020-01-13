@@ -103,10 +103,13 @@ public class MainActivity extends Activity {
         });
 
         final EditText shareString = findViewById(R.id.et_shareString);
-        shareString.setText(getString(R.string.default_share_template));
+        shareString.setText(sharedPreferences.getString(Constants.PREFERENCE_SHARE_FORMAT_STRING, getString(R.string.default_share_template)));
 
         findViewById(R.id.btn_restore).setOnClickListener(v -> shareString.setText(getString(R.string.default_share_template)));
-        findViewById(R.id.btn_save).setOnClickListener(v -> sharedPreferences.edit().putString(Constants.PREFERENCE_SHARE_FORMAT_STRING, shareString.getText().toString().trim()).apply());
+        findViewById(R.id.btn_save).setOnClickListener(v -> {
+            sharedPreferences.edit().putString(Constants.PREFERENCE_SHARE_FORMAT_STRING, shareString.getText().toString().trim()).apply();
+            Toast.makeText(MainActivity.this, R.string.save_success, Toast.LENGTH_SHORT).show();
+        });
         findViewById(R.id.btn_formatGuide).setOnClickListener(v -> showFormatString());
 
         findViewById(R.id.btn_useAttention).setOnClickListener(v -> showUseAttention());

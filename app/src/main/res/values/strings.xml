@@ -12,7 +12,7 @@
     <string name="use_attention_title">使用说明</string>
     <string name="format_guide">格式指南</string>
     <string name="format_guide_msg">\u3000\u3000你通过使用关键词的方式自定义输出格式，以下是可以使用的关键字：\n\n\u3000设备代码\t{deviceCode}\n\u3000安装包类型\t{packageType}\n\u3000更新版本信息\t{updateVersion}\n\u3000安卓版本\t{androidVersion}\n\u3000安装包MD5\t{packageMD5}\n\u3000下载地址\t{downloadUrl}</string>
-    <string name="use_attention_msg">\u3000\u3000本应用通过获取已下载的安装包与系统更新配置中的信息进行拼接得出更新包下载地址，因此需要文件读写权限或Root权限才能够运行。\n\n\u3000\u3000获取到更新包的前提是你的下载文件夹中存在下载或正在的文件[文件读写权限]，或者系统更新缓存文件中[Root权限]获取到最新的更新信息（可以通过在系统更新界面检测更新获取到缓存）。</string>
+    <string name="use_attention_msg">\u3000\u3000本应用通过获取已下载的安装包与系统更新配置中的信息进行拼接得出更新包下载地址，因此需要文件读写权限或Root权限才能够运行。\n\n\u3000\u3000获取到更新包的前提是你的下载文件夹中存在已下载或正在下载的更新包[文件读写权限]，或者系统更新缓存文件中[Root权限]存在缓存的更新信息（可以通过在系统更新界面检测更新获取到缓存）。</string>
     <string name="attention">注意</string>
     <string name="not_miui_system_attention">\u3000\u3000当前系统不是MIUI系统，本应用只支持MIUI系统使用！\n\n\u3000\u3000使用过程中如果出现任何问题后果自负！</string>
     <string name="no_update_package_found">没有找到任何安装包！</string>
